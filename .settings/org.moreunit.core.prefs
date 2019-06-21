@@ -1,0 +1,12 @@
+eclipse.preferences.version=1
+org.moreunit.core.anyLanguage.active=true
+org.moreunit.core.anyLanguage.srcFolderPathTemplate=${srcProject}/src
+org.moreunit.core.anyLanguage.testFileNameTemplate=test_${srcFile}
+org.moreunit.core.anyLanguage.testFolderPathTemplate=${srcProject}/test
+org.moreunit.core.c.srcFolderPathTemplate=${srcProject}
+org.moreunit.core.c.testFileNameTemplate=${srcFile}(Test|Spec)
+org.moreunit.core.c.testFolderPathTemplate=${srcProject}
+org.moreunit.core.ceedling.srcFolderPathTemplate=${srcProject}/src
+org.moreunit.core.ceedling.testFileNameTemplate=test_${srcFile}
+org.moreunit.core.ceedling.testFolderPathTemplate=${srcProject}/test
+org.moreunit.core.languages=,ceedling
