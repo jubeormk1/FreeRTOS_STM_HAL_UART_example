@@ -256,7 +256,7 @@ static void thread_safe_LED_toggle(uint16_t LED_seleccionado)
 
 	xSemaphoreTake(led_port_in_use, portMAX_DELAY);
 
-	LED_toggle(LED_seleccionado);
+	BSP_led_toggle(LED_seleccionado);
 
 	xSemaphoreGive(led_port_in_use);
 }

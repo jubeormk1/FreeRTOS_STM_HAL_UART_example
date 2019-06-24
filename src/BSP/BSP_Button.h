@@ -3,11 +3,11 @@
 
 #include "stm32f4xx_hal.h"
 
-void BUTTON_init(void);
+void BSP_btn_init(void);
 
-void BUTTON_attachInterrupt(void (buttonInterruptISR) (void),
+void BSP_btn_attachInterrupt(void (buttonInterruptISR) (void),
 							uint32_t PreempPrior );
 
-GPIO_PinState BUTTON_read(void);
+GPIO_PinState BSP_btn_read(void);
 
 #endif // _BSP_BUTTON_H

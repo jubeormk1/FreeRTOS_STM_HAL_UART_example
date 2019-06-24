@@ -10,16 +10,16 @@
 #include "stm32f4xx_hal.h"
 
 
-#define LED_3			(uint16_t)GPIO_PIN_13
-#define LED_all_pin 	LED_3
+#define LED_2			(uint16_t)GPIO_PIN_5
+#define LED_all_pin 	LED_2
 
 
-void LEDs_init(void);
+void BSP_leds_init(void);
 
-void LED_toggle(uint16_t LED);
+void BSP_led_toggle(uint16_t LED);
 
-void LED_off(uint16_t LED);
+void BSP_led_off(uint16_t LED);
 
-void LED_on(uint16_t LED);
+void BSP_led_on(uint16_t LED);
 
 #endif // _BSP_LEDS_H

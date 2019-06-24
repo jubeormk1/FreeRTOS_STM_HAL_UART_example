@@ -31,8 +31,11 @@
 #include <stdlib.h>
 #include "diag/Trace.h"
 
-#include "program_tasks.h"
+#include "BSP_uart.h"
+#include "BSP_Button.h"
+#include "BSP_LEDS.h"
 
+#include "string.h"
 // ----------------------------------------------------------------------------
 //
 // STM32F4 empty sample (trace via NONE).
@@ -44,6 +47,20 @@
 // (currently OS_USE_TRACE_ITM, OS_USE_TRACE_SEMIHOSTING_DEBUG/_STDOUT).
 //
 
+#define RX_BUFFER_LEN 10
+
+char last_rx_byte = 0;
+
+char rx_buffer[RX_BUFFER_LEN];
+uint16_t	rx_buffer_index = 0;
+
+void SysTick_Handler (void);
+
+void trigger_TX_pc(void);
+
+void receive_RX(void);
+
+const	uint8_t uart_send[] = "Mandando una simple cadena de texto\r\n";
 // ----- main() ---------------------------------------------------------------
 
 // Sample pragmas to cope with warnings. Please note the related line at
@@ -56,22 +73,62 @@
 int
 main(int argc, char* argv[])
 {
-  // At this stage the system clock should have already been configured
-  // at high speed.
+	// At this stage the system clock should have already been configured
+	// at high speed.
 
-  // Infinite loop
-  while (1)
-    {
-       // Add your code here.
-    }
+	HAL_Init();
+
+	BSP_leds_init();
+
+	BSP_btn_init();
+
+	BSP_btn_attachInterrupt(trigger_TX_pc,15);
+
+	BSP_pc_uart_init(); /* Aun no tengo la interrupcion activada*/
+
+	BSP_pc_uart_rx_attach_IRQ(receive_RX, 15);
+
+	BSP_pc_uart_rx_start(&last_rx_byte,1);
+
+	// Infinite loop
+	while (1)
+	{
+		HAL_Delay(1000);
+		//LED_toggle(LED_2);
+		// Add your code here.
+	}
+}
+
+
+void trigger_TX_pc(void)
+{
+	BSP_pc_uart_tx(uart_send, strlen(uart_send));
+	BSP_led_toggle(LED_2);
+}
+
+void receive_RX(void)
+{
+	char received_byte = last_rx_byte;
+	rx_buffer[rx_buffer_index++] = received_byte;
+//	BSP_pc_uart_tx(rx_buffer[rx_buffer_index-1], 1);
+	if (received_byte == '\n' ||
+			received_byte == '\r' ||
+			rx_buffer_index >= (RX_BUFFER_LEN-2))
+	{
+		BSP_led_toggle(LED_2);
+		rx_buffer[rx_buffer_index++] = '\n';
+		rx_buffer[rx_buffer_index++] = '\r';
+		BSP_pc_uart_tx(rx_buffer, rx_buffer_index);
+		rx_buffer_index = 0;
+	}
+	BSP_pc_uart_rx_start(&last_rx_byte,1);
 }
 
 void SysTick_Handler (void)
 {
-
 	HAL_IncTick();
 
-	task_update_rtos_SysTick();
+//	task_update_rtos_SysTick();
 
 }
 #pragma GCC diagnostic pop

@@ -3,12 +3,14 @@
 
 #include "stm32f4xx_hal.h"
 
-void BSP_uart_init(void);
+void BSP_pc_uart_init(void);
 
-void BSP_uart_deinit(void);
+void BSP_pc_uart_deinit(void);
 
-void BSP_uart_tx(void);
+uint16_t BSP_pc_uart_tx(uint8_t * pData, uint16_t size); /* IT driven */
 
-void BSP_uart_rx(void);
+void BSP_pc_uart_rx_attach_IRQ( void irq_fun_rx (void), uint32_t priority);
+
+uint16_t BSP_pc_uart_rx_start(uint8_t * pbuffer, uint16_t len);
 
 #endif // _BSP_UART_H

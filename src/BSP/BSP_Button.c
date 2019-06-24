@@ -15,7 +15,9 @@
 
 static void (* buttonISR_h) (void);
 
-void BUTTON_init (void)
+void EXTI15_10_IRQHandler(void);
+
+void BSP_btn_init (void)
 {
 	GPIO_BUTTON_ENABLE();
 
@@ -31,7 +33,7 @@ void BUTTON_init (void)
 }
 
 
-void BUTTON_attachInterrupt(void (buttonInterruptISR) (void), uint32_t PreempPrior )
+void BSP_btn_attachInterrupt(void (buttonInterruptISR) (void), uint32_t PreempPrior )
 {
 	buttonISR_h = buttonInterruptISR;
 
@@ -41,7 +43,7 @@ void BUTTON_attachInterrupt(void (buttonInterruptISR) (void), uint32_t PreempPri
 }
 
 
-GPIO_PinState BUTTON_read( void )
+GPIO_PinState BSP_btn_read( void )
 {
 	GPIO_PinState retval = GPIO_PIN_RESET;
 
@@ -51,7 +53,7 @@ GPIO_PinState BUTTON_read( void )
 }
 
 
-void EXTI0_IRQHandler(void)
+void EXTI15_10_IRQHandler(void)
 {
 	HAL_GPIO_EXTI_IRQHandler(BUTTON_PIN);
 }
