@@ -1,6 +1,6 @@
 #include "BSP_Button.h"
 
-#ifdef STM32F401xE
+#ifdef NUCLEOF401RE
 
 #define BUTTON_PORT					GPIOC
 #define BUTTON_PIN					GPIO_PIN_13
@@ -9,8 +9,8 @@
 #define BUTTON_SubPriority			(uint32_t)0
 #define GPIO_BUTTON_ENABLE()		__HAL_RCC_GPIOC_CLK_ENABLE()
 
-#elif
-#error BSP boton no listo para plataforma
+#else
+ #error BSP boton no listo para plataforma
 #endif
 
 static void (* buttonISR_h) (void);
@@ -38,7 +38,6 @@ void BUTTON_attachInterrupt(void (buttonInterruptISR) (void), uint32_t PreempPri
 	HAL_NVIC_SetPriority(BUTTON_IRQn, PreempPrior, BUTTON_SubPriority);
 
 	HAL_NVIC_EnableIRQ(BUTTON_IRQn);
-
 }
 
 

@@ -188,6 +188,8 @@
                                     <listOptionValue builtIn="false" value="USE_HAL_DRIVER"/>
                                     									
                                     <listOptionValue builtIn="false" value="HSE_VALUE=8000000"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="NUCLEOF401RE"/>
                                     								
                                 </option>
                                 								
