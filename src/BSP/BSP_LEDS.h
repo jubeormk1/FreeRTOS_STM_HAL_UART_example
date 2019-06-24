@@ -14,7 +14,7 @@
 #define LED_all_pin 	LED_3
 
 
-void LEDs_init(GPIO_TypeDef * GPIO_FOR_LEDS);
+void LEDs_init(void);
 
 void LED_toggle(uint16_t LED);
 
